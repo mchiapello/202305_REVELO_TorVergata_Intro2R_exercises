@@ -1,0 +1,403 @@
+---
+title: "Lezione 2: Dataframe"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+    
+    ```{r setup, include=FALSE}
+library(learnr)
+library(palmerpenguins)
+library(tidyverse)
+```
+
+## Ispezioniamo i dataframes
+
+### Dimensioni
+
+```{r df1-setup, echo=FALSE}
+penguins <- as.data.frame(palmerpenguins::penguins)
+
+```
+
+```{r df1, exercise=TRUE}
+# Il dataframe "penguins" contiene dati relativ a diversi pinguini, 
+# presenti su diverse isole a cui sono stati misurati dati biometrici. 
+# Sapresti dire le dimensioni del dataset? Quante osservazioni e quante
+# variabili sono contenute?
+```
+
+```{r df1-hint-1}
+# usa la funzione dim()
+```
+
+```{r df1-hint-2}
+# In alternativa puoi usare le funzioni nrow() e ncol()
+```
+
+```{r df1-hint-3}
+# La soluzione è
+dim(penguins)
+ncol(penguins)
+nrow(penguins)
+```
+
+## Nomi delle colonne
+
+```{r df2, exercise=TRUE, exercise.setup = "df1-setup"}
+# Quali sono i nomi delle colonne del dataframe penguins?
+
+```
+
+```{r df2-hint-1}
+# Usa la funzione names() o colnames()
+
+```
+
+```{r df2-hint-2}
+# La soluzione è 
+names(penguins)
+
+```
+
+## Struttura del dataframe
+```{r df3, exercise=TRUE, exercise.setup = "df1-setup"}
+# Ispeziona la struttura del dataframe penguins usando il comando str()
+
+```
+
+```{r df3-solution}
+str(penguins)
+```
+
+```{r quiz2, echo = FALSE}
+quiz(
+    question("La colonna bill_length_mm è",
+             answer("Carattere"),
+             answer("Logico"),
+             answer("Numerico", correct = TRUE),
+             answer("Numerosa"),
+             random_answer_order = TRUE,
+             allow_retry = TRUE
+    ),
+    question("La colonna year è",
+             answer("Intera", correct = TRUE),
+             answer("Integra"),
+             answer("Interinale"),
+             answer("Datata"),
+             random_answer_order = TRUE,
+             allow_retry = TRUE
+    )
+)
+```
+
+### Prova ad utilizzare la funzione summary()
+
+```{r df4, exercise=TRUE, exercise.setup = "df1-setup"}
+# Ispeziona il contenuto del dataframe usando il comando summary()
+
+```
+
+```{r df4-solution}
+summary(penguins)
+```
+
+
+```{r quiz, echo = FALSE}
+quiz(
+    question("Cosa contiene l'output della funzione summary?",
+             answer("La classe delle colonne"),
+             answer("I nomi delle colonne e statistica inferenziale"),
+             answer("I nomi delle colonne e statistica descrittiva", correct = TRUE),
+             answer("I nomi delle colonne e statistica bayesiana"),
+             random_answer_order = TRUE,
+             allow_retry = TRUE
+    ),
+    question("Osservando la variabile species sapresti dire quante specie di pinguini sono presenti nel dataset",
+             answer("3", correct = TRUE),
+             answer("152"),
+             answer("344"),
+             answer("124"),
+             random_answer_order = TRUE,
+             allow_retry = TRUE
+    ),
+    question("Qual è la lunghezza media della lunghezza del becco dei pinguini presenti nel dataframe?",
+             answer("43.92", correct = TRUE),
+             answer("32.10"),
+             answer("48.50"),
+             answer("44.454"),
+             random_answer_order = TRUE,
+             allow_retry = TRUE
+    )
+)
+```
+
+## Indexing and Subsetting
+
+### Importare i dati
+
+```{r df5-setup, echo = FALSE}
+library(tidyverse)
+dir.create("data",  showWarnings = FALSE)
+download.file(url = "https://ndownloader.figshare.com/files/2292169",
+              destfile = "data/portal_data_joined.csv", quiet = TRUE)
+surveys <- read_csv("data/portal_data_joined.csv", show_col_types = FALSE)
+```
+
+```{r df5, exercise=TRUE, exercise.setup = "df5-setup"}
+# Carica il file csv "portal_data_joined.csv" presente nella cartella data in una variabile chiamata surveys
+
+
+```
+
+```{r df5-hint-1}
+# Usa la funzione read_csv()
+```
+
+```{r df5-hint-2}
+# La soluzione è:
+(surveys <- read_csv("data/portal_data_joined.csv"))
+```
+
+### Create nuovi dataframes
+
+```{r df6, exercise=TRUE, exercise.setup = "df5-setup"}
+# Crea un dataframe che contenga solo la riga 200 di surveys.
+# Salva in una variabile chiamata surveys_200
+surveys_200 <- surveys[___ , ___]
+
+```
+
+```{r df6-hint-1}
+# Aggiungi i valori mancanti sui trattini
+```
+
+```{r df6-hint-2}
+# Il primo elemento in parentesi quadra è la selezione sulle righe, 
+# mentre quella dopo la virgola è quella sulle colonne.
+
+# A noi in questo esercizio interessa fare suna selezione solo sulle righe
+
+```
+
+```{r df6-hint-3}
+# La soluzione è:
+(surveys_200 <- surveys[200, ])
+
+```
+
+```{r df7, exercise=TRUE, exercise.setup = "df5-setup"}
+# Partendo da surveys, crea un dataframe che contenga 
+# dalla riga 200 alla riga 224 e le prime 5 colonne
+# Salva in una variabile chiamata surveys_sub
+surveys_sub <- surveys[___ , ___]
+
+```
+
+```{r df7-hint-1}
+# Aggiungi i valori mancanti sui trattini
+```
+
+```{r df7-hint-2}
+# Il primo elemento in parentesi quadra è la selezione sulle righe, 
+# mentre quella dopo la virgola è quella sulle colonne.
+
+# A noi in questo esercizio interessa fare una selezione sia sulle righe
+# che sulle colonne
+
+```
+
+```{r df7-hint-3}
+# La soluzione è:
+(surveys_sub <- surveys[200:224, 1:5])
+
+```
+
+```{r df8, exercise=TRUE, exercise.setup = "df5-setup"}
+# Partendo da surveys, crea un dataframe che contenga 
+# solo la riga centrale
+# Salva in una variabile chiamata surveys_middle
+___ <- surveys[___ , ___]
+
+```
+
+```{r df8-hint-1}
+# Aggiungi i valori mancanti sui trattini
+```
+
+```{r df8-hint-2}
+# Il primo elemento in parentesi quadra è la selezione sulle righe, 
+# mentre quella dopo la virgola è quella sulle colonne.
+
+# A noi in questo esercizio interessa fare una selezione solo sulle righe
+
+```
+
+```{r df8-hint-3}
+# Usa la funziona nrow() per calcolare il numero di righe del data.frame
+
+```
+
+```{r df8-hint-4}
+# La soluzione è:
+(surveys_middle <- surveys[nrow(surveys) / 2, ])
+
+```
+
+```{r df9, exercise=TRUE, exercise.setup = "df5-setup"}
+# Partendo da surveys, crea un dataframe che contenga 
+# solo le ultime 7 righe del data.frame
+# Salva in una variabile chiamata surveys_last
+___ <- surveys[___ , ___]
+
+```
+
+```{r df9-hint-1}
+# Aggiungi i valori mancanti sui trattini
+```
+
+```{r df9-hint-2}
+# Il primo elemento in parentesi quadra è la selezione sulle righe, 
+# mentre quella dopo la virgola è quella sulle colonne.
+
+# A noi in questo esercizio interessa fare una selezione solo sulle righe
+
+```
+
+```{r df9-hint-3}
+# Usa la funziona nrow() per calcolare il numero di righe del data.frame
+
+```
+
+```{r df9-hint-4}
+# La soluzione è:
+(surveys_last <- surveys[(nrow(surveys) - 7): nrow(surveys), ])
+
+```
+
+## Conditional subsetting
+
+```{r df10, exercise=TRUE, exercise.setup = "df5-setup"}
+# Partendo da surveys, crea un dataframe che contenga 
+# solo le righe del data.frame che contengono l'anno 2001.
+# Salva in una variabile chiamata surveys_2001
+___ <- surveys[___ , ___]
+
+```
+
+```{r df10-hint-1}
+# Aggiungi i valori mancanti sui trattini
+```
+
+```{r df10-hint-2}
+# Il primo elemento in parentesi quadra è la selezione sulle righe, 
+# mentre quella dopo la virgola è quella sulle colonne.
+
+# A noi in questo esercizio interessa fare una selezione solo sulle righe
+
+```
+
+```{r df10-hint-3}
+# Ricorda che per selezionare una colonna specifica bisogna usare il $
+
+# Quindi per selezionare la colonna di nostro interesse:
+surveys$year
+
+```
+
+```{r df10-hint-4}
+# La soluzione è:
+(surveys_2001 <- surveys[surveys$year == 2001, ])
+# Per controllarne la correttezza:
+table(surveys_2001$year)
+```
+
+
+```{r df11, exercise=TRUE, exercise.setup = "df5-setup"}
+# Partendo da surveys, crea un dataframe che contenga 
+# solo le righe del data.frame che contengono gli anni tra il 1980 e il 1982.
+# Salva in una variabile chiamata surveys_80
+___ <- surveys[___ , ___]
+
+```
+
+```{r df11-hint-1}
+# Aggiungi i valori mancanti sui trattini
+```
+
+```{r df11-hint-2}
+# Il primo elemento in parentesi quadra è la selezione sulle righe, 
+# mentre quella dopo la virgola è quella sulle colonne.
+
+# A noi in questo esercizio interessa fare una selezione solo sulle righe
+
+```
+
+```{r df11-hint-3}
+# Ricorda che per selezionare una colonna specifica bisogna usare il $
+
+# Quindi per selezionare la colonna di nostro interesse:
+surveys$year
+
+```
+
+```{r df11-hint-4}
+# In questo esercizio dobbiamo selezionare 2 date. 
+# Essendo il range che ci interessa una intersezione possiamo usare
+# l'operatore &
+
+# condizione1 & condizione2
+
+```
+
+```{r df11-hint-5}
+# La soluzione è:
+(surveys_80 <- surveys[surveys$year >= 1980 & surveys$year <= 1982, ])
+# Per controllarne la correttezza:
+table(surveys_80$year)
+```
+
+
+```{r df12, exercise=TRUE, exercise.setup = "df5-setup"}
+# Partendo da surveys, crea un dataframe che contenga 
+# solo le righe del data.frame che contengono gli anni 
+# prima del 1980 e dopo il 2001.
+# Salva in una variabile chiamata surveys_ext
+___ <- surveys[___ , ___]
+
+```
+
+```{r df12-hint-1}
+# Aggiungi i valori mancanti sui trattini
+```
+
+```{r df12-hint-2}
+# Il primo elemento in parentesi quadra è la selezione sulle righe, 
+# mentre quella dopo la virgola è quella sulle colonne.
+
+# A noi in questo esercizio interessa fare una selezione solo sulle righe
+
+```
+
+```{r df12-hint-3}
+# Ricorda che per selezionare una colonna specifica bisogna usare il $
+
+# Quindi per selezionare la colonna di nostro interesse:
+surveys$year
+
+```
+
+```{r df12-hint-4}
+# In questo esercizio dobbiamo selezionare 2 date. 
+# Essendo il range che ci interessa una esclusione possiamo usare
+# l'operatore |
+
+# condizione1 | condizione2
+
+```
+
+```{r df12-hint-5}
+# La soluzione è:
+(surveys_ext <- surveys[surveys$year <= 1980 | surveys$year >= 2001, ])
+# Per controllarne la correttezza:
+table(surveys_ext$year)
+```

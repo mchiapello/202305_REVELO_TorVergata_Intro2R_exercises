@@ -1,0 +1,87 @@
+---
+title: "Lezione 1: Introduzione a R e RStudio"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+    
+    ```{r setup, include=FALSE}
+library(learnr)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+## Cos'è R?
+
+```{r quiz}
+quiz(
+    question("Il termine R si riferisce a:",
+             answer("Ad un linguaggio di programmazione"),
+             answer("Ad un software"),
+             answer("Ad un linguaggio di programmazione e ad un software", correct = TRUE),
+             answer("Ad un grande mistero universale"),
+             random_answer_order = TRUE,
+             allow_retry = TRUE
+    ),
+    question("R permette di: (più di una risposta potrebbe essere corretta)",
+             answer("Eseguire analisi statistiche", correct = TRUE),
+             answer("Creare applicazioni", correct = TRUE),
+             answer("Creare siti web", correct = TRUE),
+             answer("Scrivere libri", correct = TRUE),
+             answer("Creare presentazioni in Powerpoint", correct = TRUE),
+             random_answer_order = TRUE,
+             allow_retry = TRUE
+    )
+)
+```
+
+## Cos'è un pacchetto di R?
+
+```{r quiz2}
+quiz(question("I pacchetti di R sono: ",
+              answer("Collezioni di funzioni", correct = TRUE),
+              answer("Una complicazione inutile"),
+              answer("Collezioni di variabili"),
+              answer("Collezioni di dati"),
+              random_answer_order = TRUE,
+             allow_retry = TRUE
+              ),
+     question("Che cos'è Bioconductor?",
+             answer("Un conduttore biologico"),
+             answer("Un software"),
+             answer("Strumenti per analisi di dati biologicie", correct = TRUE),
+             answer("Un gruppo per biologi nerd"),
+             random_answer_order = TRUE,
+             allow_retry = TRUE
+    )
+)
+```
+
+## Cos’è RStudio?
+
+```{r quiz3}
+quiz(question("RStudio è:",
+             answer("Un pacchetto di R"),
+             answer("Un software"),
+             answer("Un'azienda", correct = TRUE),
+             answer("Un hardware"),
+             random_answer_order = TRUE,
+             allow_retry = TRUE
+    ),
+     question("RStudio IDE (integrated development environment) è:",
+             answer("Un pacchetto di R"),
+             answer("Un software", correct = TRUE),
+             answer("Un'azienda"),
+             answer("Un hardware"),
+             random_answer_order = TRUE,
+             allow_retry = TRUE
+    ),
+     question("Che cos'è la console in RStudio IDE?",
+             answer("La pagina dove ricercare aiuto", message = "Quella si chiama HELP"),
+             answer("La finestra dove corre R", correct = TRUE),
+             answer("La finestra dove scrivere il mio codice"),
+             answer("Il posto dove vengono visualizzati i grafici", message = "Quella si chiama PLOT"),
+             random_answer_order = TRUE,
+             allow_retry = TRUE
+    )
+)
+```

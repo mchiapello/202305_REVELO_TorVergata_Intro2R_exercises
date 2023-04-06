@@ -1,0 +1,109 @@
+---
+title: "Lezione 2: Variabili"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+    
+    ```{r setup, include=FALSE}
+library(learnr)
+
+```
+
+## Creazione e assegnazione di variabili
+
+#### Nei seguenti eserizi ti verrà chiesto di create valori ed assegnarli a diverse variabili.
+
+```{r salva, exercise=TRUE}
+# Salva dentro la variabile x il valore 15 e stampalo a schermo
+
+```
+
+```{r salva-hint-1}
+# Per assegnare una variabile devi usare il simbolo <-
+```
+
+```{r salva-hint-2}
+# A sinistra del simbolo <- devi mettere il nome della variabile (nel tuo caso x)
+```
+
+```{r salva-hint-3}
+# A destra del simbolo <- devi mettere il valore (nel tuo caso 15)
+```
+
+#### Questo esercizio è concettualmente uguale al precedente, ma bisogna cambiare il nome della variabile e il valore da salvare al suo interno.
+
+```{r salva1, exercise=TRUE}
+# Salva dentro la variabile y il valore 5 e stampalo a schermo
+```
+
+
+```{r salva1-hint-1}
+# Per assegnare una variabile devi usare il simbolo <-
+```
+
+```{r salva1-hint-2}
+# A sinistra del simbolo <- devi mettere il nome della variabile (nel tuo caso y)
+```
+
+```{r salva1-hint-3}
+# A destra del simbolo <- devi mettere il valore (nel tuo caso 5)
+```
+
+#### In questo esercizio salveremo all'interno di una variabile il valore dei una operazione matematica
+
+```{r salva2s}
+x <- 15
+y <- 5
+```
+
+```{r salva2, exercise=TRUE, exercise.setup = "salva2s"}
+# Salva dentro la variabile z la somma tra la variabile x e la variabile y. Stampa a schermo il risultato
+```
+
+
+
+```{r salva2-hint-1}
+# Per assegnare una variabile devi usare il simbolo <-
+```
+
+```{r salva2-hint-2}
+# A sinistra del simbolo <- devi mettere il nome della variabile (nel tuo caso z)
+```
+
+```{r salva2-hint-3}
+# A destra del simbolo <- devi mettere la somma tra x e y (x + y)
+```
+
+#### Questo esercizio è concettualmente simile al precedente, ma bisogna cambiare l'operazione matematica
+
+```{r salva3s}
+x <- 15
+y <- 5
+z <- x + y
+```
+
+```{r salva3, exercise=TRUE, exercise.setup = "salva3s"}
+# Salva dentro la variabile bar la differenza tra la variabile z e la variabile x. Stampa a schermo il risultato
+
+
+
+# Confronta il contenuto della variabile bar e della variabile y stampando a schermo i loro valori.
+
+
+# Confronta contenuto della variabile bar e della variabile y usando l'operatore ==
+
+
+```
+
+```{r salva3-hint-1}
+# Per assegnare una variabile devi usare il simbolo <-
+```
+
+```{r salva3-hint-2}
+# Stampa a schermo il contenuto delle variabili bar e y. Sono uguali?
+```
+
+```{r salva3-hint-3}
+# Per confrontare il contenuto delle variabili devi usare l'operatore ==.
+# Mettendo sulla sinistra una delle due variabili e sulla destra l'altra. Per esempio: bar == y.
+```

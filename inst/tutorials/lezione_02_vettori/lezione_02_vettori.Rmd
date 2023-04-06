@@ -1,0 +1,382 @@
+---
+title: "Lezione 2: Vettori"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+    
+    ```{r setup, include=FALSE}
+library(learnr)
+
+```
+
+## Creazione e assegnazione di vettori
+
+### Nei segienti esercizi ti verrà chiesto di create vettori di diversa natura 
+
+#### Nei seguenti eserizi ti verrà chiesto di create vettori numerici ed assegnarli a diverse variabili.
+
+```{r salva, exercise=TRUE}
+# Salva dentro la variabile x un vettore con numeri progressivi da 1 a 15 e stampalo a schermo
+
+```
+
+```{r salva-hint-1}
+# Per creare un vettore da 1 a 15 usa l'operatore ':'
+```
+
+```{r salva-hint-2}
+# A sinistra del simbolo ':' metti il numero di inizio della serie e a destra il numero di fine
+```
+
+```{r salva-hint-3}
+# La soluzione è 
+(x <- 1:15)
+```
+
+
+```{r salva1, exercise=TRUE}
+# Salva dentro la variabile y un vettore che va da 15 a 1.
+```
+
+
+```{r salva1-hint-1}
+# Per creare un vettore da 1 a 15 usa l'operatore ':'
+```
+
+```{r salva1-hint-2}
+# A sinistra del simbolo ':' metti il numero di inizio della serie e a destra il numero di fine
+```
+
+```{r salva1-hint-3}
+# La soluzione è 
+(y <- 15:1)
+```
+
+#### In questo esercizio salveremo all'interno di una variabile un vettore con incremento diverso da 1
+
+```{r salva2, exercise=TRUE}
+# Salva all'interno del vettore z una sequenza di numeri pari che va da 2 a 200
+
+```
+
+
+```{r salva2-hint-1}
+# Per creare questo vettore usa la funzione seq()
+```
+
+```{r salva2-hint-2}
+# Il primo elemento della funzione è il valore iniziale, il secondo è il valore finale, mentro il terzo è l'incremento
+```
+
+```{r salva2-hint-3}
+# La soluzione è 
+(z <- seq(2, 200, 2))
+```
+
+#### Questo esercizio è concettualmente simile al precedente, ma bisogna costruire un vettore di numeri dispari da 1 a 200. 
+
+```{r salva3, exercise=TRUE}
+# Per creare questo vettore usa la funzione seq()
+
+```
+
+```{r salva3-hint-1}
+# Il primo elemento della funzione è il valore iniziale, il secondo è il valore finale, mentro il terzo è l'incremento
+```
+
+```{r salva3-hint-2}
+# Stampa a schermo il contenuto delle variabili bar e y. Sono uguali?
+```
+
+```{r salva3-hint-3}
+# La soluzione è 
+seq(1, 200, 2)
+```
+
+#### Nei seguente esercizi creeremo vettori logici e di caratteri
+
+```{r log1, exercise=TRUE}
+# Crea un vettore che contenga TRUE e FALSE
+# Salva il vettore in una variabile chiamata lg
+# Il vettore deve contenere 3 TRUE e 2 FALSE
+
+
+# Controlla che il vettore lg, sia un vettore logico usando la funzione class()
+```
+
+```{r log1-hint-1}
+# Usa l'operatore c() per creare il vettore
+```
+
+```{r log1-hint-2}
+# Ricorda che TRUE e FALSE non devono essere quotati, cioè non devono essere tra virgolette
+```
+
+```{r log1-hint-3}
+# La soluzione è 
+lg <- c(TRUE, TRUE, TRUE, FALSE, FALSE)
+class(lg)
+```
+
+```{r log2, exercise=TRUE}
+# Crea un vettore che contenga i seguenti nomi:
+# Marta, Giovanni, Emma, Mattia
+# Salva il vettore in una variabile chiamata ch
+
+
+# Controlla che il vettore ch, sia un vettore "character" usando la funzione class()
+```
+
+```{r log2-hint-1}
+# Usa l'operatore c() per creare il vettore
+```
+
+```{r log2-hint-2}
+# Ricorda che i nomi devono essere quotati, cioè devono essere tra virgolette
+```
+
+```{r log2-hint-3}
+# La soluzione è 
+ch <- c("Marta", "Giovanni", "Emma", "Mattia")
+class(ch)
+```
+
+### Confrontiamo le classi dei vettori
+
+Ti ricordo che un vettore può contenere SOLO elementi della stessa classe. Cosa succede quando provo a salvare all'interno di un vettore elementi diversi, come per esempio numeri e parole?
+
+```{r log3, exercise=TRUE}
+# Usa i seguenti vettori per rispondere alle domande:
+num_char <- c(1, 2, 3, "a")
+num_logical <- c(1, 2, 3, TRUE)
+char_logical <- c("a", "b", "c", TRUE)
+tricky <- c(1, 2, 3, "4")
+
+## Puoi correre qui il codice R 
+```
+
+Prova a rispondere alle domande prima di correre il codice R
+
+```{r letter-a, echo=FALSE}
+quiz(caption = "class coercion",
+     question("A quale classe appartiene num_char",
+  answer("numeric"),
+  answer("logic"),
+  answer("character", correct = TRUE),
+  answer("R"),
+  allow_retry = TRUE,
+  random_answer_order = TRUE
+),
+   question("A quale classe appartiene num_logical",
+  answer("character"),
+  answer("logic"),
+  answer("numeric", correct = TRUE),
+  answer("R"),
+  allow_retry = TRUE,
+  random_answer_order = TRUE
+),
+   question("A quale classe appartiene char_logical",
+  answer("numeric"),
+  answer("logic"),
+  answer("character", correct = TRUE),
+  answer("R"),
+  allow_retry = TRUE,
+  random_answer_order = TRUE
+),
+   question("A quale classe appartiene tricky",
+  answer("numeric"),
+  answer("logic"),
+  answer("character", correct = TRUE),
+  answer("R"),
+  allow_retry = TRUE,
+  random_answer_order = TRUE
+),
+   question("Come abbiamo visto, se creaiamo dei vettori con elementi misti, questi vengono 'costretti' in una singola classe. Sapresti indicare la priorità delle diverse classi",
+  answer("character > logical > numeric"),
+  answer("logic > character > numeric"),
+  answer("character > numeric > logical", correct = TRUE),
+  answer("numeric > character > logical"),
+  allow_retry = TRUE,
+  random_answer_order = TRUE
+)
+)
+```
+
+
+```{r letter-b, echo=FALSE}
+
+```
+## Subsetting di vettori
+
+#### Nei sequenti esercizi dovrai eseguire vari tipi di subsettings. 
+
+### Cominciamo da quelli posizionali
+
+```{r salva4, exercise=TRUE}
+# Crea un vettore da 5 a 15 e salvalo in una variabile x
+
+# Estrai la variabile in posizione 5 (Prova ad immaginare quale sarà il numero in posizione 5)
+
+```
+
+```{r salva4-hint-1}
+# Per crare il vettore usa l'operatore ':'
+```
+
+```{r salva4-hint-2}
+# Per eseguire il subset usa l'operatore [ ]
+```
+
+```{r salva4-hint-3}
+# La soluzione è 
+x <- 5:15
+x[5]
+```
+
+#### Complichiamo un po l'esercizio
+
+```{r salva5, exercise=TRUE}
+# Crea un vettore da 5 a 15 e salvalo in una variabile y
+
+# Estrai le variabili in posizione 1, 5 e 9 (Prova ad immaginare quale sarà il vettore risultante)
+
+```
+
+```{r salva5-hint-1}
+# Per crare il vettore usa l'operatore ':'
+```
+
+```{r salva5-hint-2}
+# Per eseguire il subset usa l'operatore [ ]
+```
+
+```{r salva5-hint-3}
+# Per eseguire il subset di più elementi rcordati di usare la funzione c(). 
+# Per esempio: x[c(1, 2)]
+```
+
+```{r salva5-hint-4}
+# La soluzione è 
+x <- 5:15
+x[c(1, 5, 9]
+```
+
+#### Creaiamo ora un vettore con caratteri invece che numeri
+
+```{r salva6, exercise=TRUE}
+# Crea un vettore composta dai seguenti nomi: 
+# cane, gatto, maiale, topo, mucca. 
+# Salvalo in una variabile chiamata animali
+
+
+```
+
+```{r salva7-setup}
+animali <- c("cane", "gatto", "maiale", "topo", "mucca")
+```
+
+```{r salva7, exercise=TRUE}
+# Crea un vettore che ripeta i nomi degli animali tante volte quanti sono gli animali presenti nella fattoria: 
+# cani = 3, gatti = 2, maiale = 1, topo = 2, mucca = 1. 
+# Usa la variabile animali
+animali
+```
+
+```{r salva7-hint-1}
+# Per eseguire l'esercizio usa l'operatore [ ]
+```
+
+```{r salva7-hint-2}
+# Per eseguire il subset di più elementi rcordati di usare la funzione c(). 
+# Per esempio: x[c(1, 2)]
+# Ricordati che lo stesso indice può essere ripetuto più volte.
+# Per esempio: x[c(1, 1, 1, 2, 2)]
+```
+
+```{r salva7-hint-3}
+# Soluzione:
+animali[c(1, 1, 1, 2, 2, 3, 4, 4, 5)]
+```
+
+### Conditional Subsetting
+
+
+```{r con1, exercise=TRUE}
+# Crea un vettore (val) che contenga i seguenti valori:
+# 10, 20, 30, 40, 50, 60, 70, 80, 90, 100
+val <- seq(___, ___, ___)
+# Estrai dal vettore val tutti i valori maggiori di 30
+
+```
+
+```{r con1-hint-1}
+# Per eseguire l'esercizio usa l'operatore seq()
+```
+
+```{r con1-hint-2}
+# In primo termine nella funzione seq() è il valore di inizio, il secondo termine è il valore finale, il terzo è l'incremento
+```
+
+```{r con1-hint-3}
+# Soluzione:
+val <- seq(10, 100, 10)
+val[val > 30]
+```
+
+```{r con2-setup}
+val <- seq(10, 100, 10)
+```
+
+```{r con2, exercise=TRUE}
+# Usa il vettore val ed estrai tutti i valoti minori o uguali a 50
+val[___]
+```
+
+```{r con2-hint-1}
+# Il simbolo di minore uguale è <=
+```
+
+```{r con2-hint-2}
+# Soluzione:
+val[val <= 50]
+```
+
+```{r con3-setup}
+val <- seq(10, 100, 10)
+```
+
+```{r con3, exercise=TRUE}
+# Usa il vettore val ed estrai tutti i valori maggiori di 20 e minori di 70
+val[___  & ___]
+```
+
+```{r con3-hint-1}
+# Il simbolo & sta per l'operatore booleano AND
+# Ciò significa che la condizione alla sua destra e quella alla sua sinistra
+# devono essere entrambe vere
+```
+
+```{r con3-hint-2}
+# Soluzione:
+val[val > 20 & val < 70]
+```
+
+```{r con4-setup}
+val <- seq(10, 100, 10)
+```
+
+```{r con4, exercise=TRUE}
+# Usa il vettore val ed estrai tutti i valori minori e uguali di 20 e maggiori di 70
+val[___  | ___]
+```
+
+```{r con4-hint-1}
+# Il simbolo | sta per l'operatore booleano OR
+# Ciò significa che la condizione alla sua destra e quella alla sua sinistra
+# non devono essere entrambe vere nello stesso momento
+```
+
+```{r con4-hint-2}
+# Soluzione:
+val[val <= 20 | val > 70]
+```

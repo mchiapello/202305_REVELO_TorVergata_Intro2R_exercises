@@ -1,0 +1,501 @@
+---
+title: "Lezione 2: Manipolazione dei dati"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+    
+    ```{r setup, include=FALSE}
+library(learnr)
+library(palmerpenguins)
+library(tidyverse)
+```
+
+## Select
+
+
+```{r df1-setup, echo=FALSE}
+penguins <- palmerpenguins::penguins
+
+```
+
+```{r df1, exercise=TRUE}
+# Usando la tibble chiamata penguins seleziona le colonne 1, 5, 8
+# Usa la funziona select e il pipe opetator %>%
+
+penguins %>% 
+    select(___, ___, ___)
+```
+
+```{r df1-hint-1}
+# Sostituisci i numeri ai trattini
+```
+
+```{r df1-hint-2}
+# La soluzione è
+penguins %>% 
+    select(1, 5, 8)
+```
+
+
+```{r df2, exercise=TRUE, exercise.setup = "df1-setup" }
+# Usando la tibble chiamata penguins seleziona le colonne species, sex and year
+# Usa la funziona select e il pipe opetator %>%
+
+penguins %>% 
+    select(___, ___, ___)
+```
+
+```{r df2-hint-1}
+# Sostituisci i nomi delle colonne ai trattini
+```
+
+```{r df2-hint-2}
+# La soluzione è
+penguins %>% 
+    select(species, sex, year)
+```
+
+```{r df3, exercise=TRUE, exercise.setup = "df1-setup" }
+# Usando la tibble chiamata penguins seleziona tutte le colonne il cui nome inizia con la lettera "b".    
+# Usa la funziona select e il pipe opetator %>%
+
+penguins
+```
+
+```{r df3-hint-1}
+# Utilizare la funzione help chiamata starts_with()
+```
+
+```{r df3-hint-2}
+# Ricordarsi di quotare (mettere tra vircolette) la parola di interesse nella funzione starts_with()
+
+# Es: select(starts_with("bill"))
+```
+
+```{r df3-hint-3}
+# La soluzione è
+penguins %>% 
+    select(starts_with("b"))
+```
+
+```{r df4, exercise=TRUE, exercise.setup = "df1-setup" }
+# Usando la tibble chiamata penguins elimina tutte le colonne il cui nome finisce con la "mm".    
+# Usa la funziona select e il pipe opetator %>%
+
+penguins
+```
+
+```{r df4-hint-1}
+# Utilizare la funzione help chiamata ends_with()
+```
+
+```{r df4-hint-2}
+# Ricordarsi di quotare (mettere tra vircolette) la parola di interesse nella funzione ends_with()
+
+# Es: select(ends_with("bill"))
+```
+
+```{r df4-hint-3}
+# Ricordarsi di aggiungere un meno (-) davanti alla funzione ends_with per eliminare le colonne
+
+# Es: select(-ends_with("bill"))
+```
+
+```{r df4-hint-4}
+# La soluzione è
+penguins %>% 
+    select(-ends_with("mm"))
+```
+
+## Filter
+
+```{r df5, exercise=TRUE, exercise.setup = "df1-setup" }
+# Usando la tibble chiamata penguins estrai tutte le osservazioni che contengono la specie Adelie
+# Usa la funziona filter e il pipe opetator %>%
+
+penguins
+```
+
+```{r df5-hint-1}
+# Utilizare la funzione filter sulla colonna species
+```
+
+```{r df5-hint-2}
+# La colonna species contenere Adelie. Per tradurlo in linguaggio R, puoi scrivere 
+# species == "Adelie"
+
+```
+
+```{r df5-hint-3}
+# La soluzione è
+penguins %>% 
+    filter(species == "Adelie")
+```
+
+```{r df6, exercise=TRUE, exercise.setup = "df1-setup" }
+# Usando la tibble chiamata penguins estrai tutte le osservazioni che contengono la specie Adelie e
+# e l'isola Torgersen
+# Usa la funziona filter e il pipe opetator %>%
+
+penguins
+```
+
+```{r df6-hint-1}
+# Utilizare la funzione filter sulle colonne species e island
+```
+
+```{r df6-hint-2}
+# La soluzione è
+penguins %>% 
+    filter(species == "Adelie",
+           island == "Torgersen")
+```
+
+```{r df7, exercise=TRUE, exercise.setup = "df1-setup" }
+# Usando la tibble chiamata penguins estrai tutti i pinguini dell'isola di Biscoe che hanno la lunghezza del becco
+# compresa tra 34 e 36 inclusi
+
+penguins
+```
+
+```{r df7-hint-1}
+# Utilizare la funzione filter sulle colonne island e bill_length_mm
+```
+
+```{r df7-hint-2}
+# La soluzione è
+penguins %>% 
+    filter(island == "Biscoe",
+           bill_length_mm >= 34,
+           bill_length_mm <= 36)
+```
+
+```{r df8, exercise=TRUE, exercise.setup = "df1-setup" }
+# Usando la tibble chiamata penguins estrai tutti i pinguini dell'isola di Dream che hanno la lunghezza delle pinne
+# minore di 179 e maggiore di 209
+
+penguins
+```
+
+```{r df8-hint-1}
+# Utilizare la funzione filter sulle colonne island e flipper_length_mm
+```
+
+```{r df8-hint-2}
+# L'operatore boolean OR viene indicato nel codice da una barra verticale ( | )
+# Esso deve essere usato quando volete estrarre valori più piccoli di x OR più grandi di x
+```
+
+```{r df8-hint-3}
+# La soluzione è
+penguins %>% 
+    filter(island == "Dream",
+           flipper_length_mm < 179 | flipper_length_mm > 209)
+```
+
+```{r df8b, exercise=TRUE, exercise.setup = "df1-setup" }
+# Usando la tibble chiamata penguins elimina tutti gli NA nella colonna bill_length_mm
+
+penguins
+```
+
+```{r df8b-hint-1}
+# Utilizare la funzione filter sulla colonna bill_length_mm
+```
+
+```{r df8b-hint-2}
+# La funzione da usare è is.na()
+# Ricordati di usare la negazione della funzione. Si ottiene anteponendo alla funzione un punto escalmativo (!)
+```
+
+```{r df8b-hint-3}
+# La soluzione è
+penguins %>% 
+    filter(!is.na(bill_length_mm))
+```
+
+
+## Mutate
+
+```{r df9, exercise=TRUE, exercise.setup = "df1-setup" }
+# Usando la tibble chiamata penguins crea una nuova colonna che contenga la
+# lunghezza del becco in centimetri
+
+penguins
+```
+
+```{r df9-hint-1}
+# Utilizare la funzione mutate sulla colonna bill_length_mm
+```
+
+```{r df9-hint-2}
+# La funzione mutate vuole come primo argomento il nome della nuova colonna.
+# Successivamente vuole il valore della nuova colonna.
+# Il nome della colonna  e  il suo valore sono separati da un uguale (=)
+```
+
+```{r df9-hint-3}
+# La soluzione è
+penguins %>% 
+    mutate(bill_length_cm = bill_length_mm / 10)
+```
+
+### Questo esercizio ha un livello di difficoltà elevato
+
+```{r df10, exercise=TRUE, exercise.setup = "df1-setup" }
+# Usando la tibble chiamata penguins aggiorna la colonna island.
+# Immagina che il nome dell'isola Torgersen sia scritto sbagliato. 
+# Vogliamo quindi correggerlo con il nome giusto. Per farlo dobbiamo usare 
+# una funzione nuova che si chiama "ifelse".
+
+# La funzione "ifelse" funziona in questo modo: se una condizione è vera, la funzione fa
+# l'operazione A, mentre se è falsa esegue l'operazione B.
+
+# Nel nostro caso dovremo scrive un comando che dica:
+# - se il nome dell'isola è Torgersen allora cambialo in Elba;
+# - se il nome non è Torgersen allora lascia il nome corrente
+
+penguins %>%
+    mutate(island = ifelse(___ == ___, "___", island))
+```
+
+```{r df10-hint-1}
+# Utilizare la funzione mutate sulla colonna island
+```
+
+```{r df10-hint-2}
+# se island == "Torgersen" allora sostituiscilo con "Elba", se no non cambiare il valore nella colonna
+```
+
+```{r df10-hint-3}
+# La soluzione è
+penguins %>% 
+    mutate(island = ifelse(island == "Torgersen", "Elba", island))
+```
+
+## Group_by / Summarise
+
+
+```{r df11, exercise=TRUE, exercise.setup = "df1-setup" }
+# Usando la tibble chiamata penguins calcola la media e la mediana della lunghezza dei becchi 
+# Delle tre specie di pinguini
+
+```
+
+```{r df11-hint-1}
+# Utilizare le funzioni group_by e summarise
+```
+
+```{r df11-hint-2}
+# Raggruppa usando la colonna species
+# La media si calcola usando la funzione mean()
+# La mediana si calcola usando la funzione median()
+```
+
+```{r df11-hint-3}
+# Ricordatevi che se sono presenti degli NA nella colonna, il risultato delle funzioni
+# mean e median sarà NA. Per ovviare a questo problema dovete rimuovere gli NA o dire alle
+# funzioni di ignorarli usando na.rm = TRUE
+```
+
+```{r df11-hint-4}
+# La soluzione 1 è
+penguins %>% 
+    group_by(species) %>%
+    summarise(media = mean(bill_length_mm, na.rm = TRUE),
+              mediana = median(bill_length_mm, na.rm = TRUE))
+
+# La soluzione 2 è
+penguins %>% 
+    filter(!is.na(bill_length_mm)) %>%
+    group_by(species) %>%
+    summarise(media = mean(bill_length_mm),
+              mediana = median(bill_length_mm))
+```
+
+```{r df11b, exercise=TRUE, exercise.setup = "df1-setup" }
+# Usando la tibble chiamata penguins calcola la media e la mediana della lunghezza dei becchi 
+# Delle tre specie di pinguini ogni anno di campionamento
+
+```
+
+```{r df11b-hint-1}
+# L'esercizio è del tutto simile al precedente, ma invece di raggruppare solamente per
+# species ora bisogna raggruppare anche per year
+```
+
+```{r df11b-hint-2}
+# La media si calcola usando la funzione mean()
+# La mediana si calcola usando la funzione median()
+```
+
+```{r df11b-hint-3}
+# Ricordatevi che se sono presenti degli NA nella colonna, il risultato delle funzioni
+# mean e median sarà NA. Per ovviare a questo problema dovete rimuovere gli NA o dire alle
+# funzioni di ignorarli usando na.rm = TRUE
+```
+
+```{r df11b-hint-4}
+# La soluzione 1 è
+penguins %>% 
+    group_by(species, year) %>%
+    summarise(media = mean(bill_length_mm, na.rm = TRUE),
+              mediana = median(bill_length_mm, na.rm = TRUE))
+
+# La soluzione 2 è
+penguins %>% 
+    filter(!is.na(bill_length_mm)) %>%
+    group_by(species, year) %>%
+    summarise(media = mean(bill_length_mm),
+              mediana = median(bill_length_mm))
+```
+
+```{r df12, exercise=TRUE, exercise.setup = "df1-setup" }
+# Usando la tibble chiamata penguins calcola la media e la mediana della lunghezza dei becchi 
+# Delle tre specie di pinguini ogni anno di campionamento e per ogni isola
+
+```
+
+```{r df12-hint-1}
+# L'esercizio è del tutto simile al precedente, ma invece di raggruppare per
+# species e year, ora bisogna aggiungere island
+```
+
+```{r df12-hint-2}
+# La media si calcola usando la funzione mean()
+# La mediana si calcola usando la funzione median()
+```
+
+```{r df12-hint-3}
+# Ricordatevi che se sono presenti degli NA nella colonna, il risultato delle funzioni
+# mean e median sarà NA. Per ovviare a questo problema dovete rimuovere gli NA o dire alle
+# funzioni di ignorarli usando na.rm = TRUE
+```
+
+```{r df12-hint-4}
+# La soluzione 1 è
+penguins %>% 
+    group_by(species, year, island) %>%
+    summarise(media = mean(bill_length_mm, na.rm = TRUE),
+              mediana = median(bill_length_mm, na.rm = TRUE))
+
+# La soluzione 2 è
+penguins %>% 
+    filter(!is.na(bill_length_mm)) %>%
+    group_by(species, year, island) %>%
+    summarise(media = mean(bill_length_mm),
+              mediana = median(bill_length_mm))
+```
+
+```{r df13, exercise=TRUE, exercise.setup = "df1-setup" }
+# Usando la tibble chiamata penguins estrai il pinguino maschio e il pinguino femmina con
+# il becco più lungo
+
+```{r df13-hint-1}
+# L'esercizio prevede l'utilizzo di group_by ma non di summarise
+
+```
+
+```{r df13-hint-2}
+# Utilizzare la funzione filter dopo aver raggruppato per sex
+```
+
+```{r df13-hint-3}
+# La soluzione è
+penguins %>% 
+    group_by(sex) %>%
+    filter(bill_length_mm == min(bill_length_mm))
+```
+
+```{r df14, exercise=TRUE, exercise.setup = "df1-setup" }
+# Usando la tibble chiamata penguins estrai per ogni specie il pinguino maschio e il pinguino femmina con
+# il becco più lungo
+
+```{r df14-hint-1}
+# L'esercizio è simile al precedente, ma bisogna raggruppare anche per species
+
+```
+
+```{r df14-hint-2}
+# Utilizzare la funzione filter dopo aver raggruppato per sex e species
+```
+
+```{r df14-hint-3}
+# La soluzione è
+penguins %>% 
+    group_by(sex, species) %>%
+    filter(bill_length_mm == min(bill_length_mm))
+```
+
+## Pivoting
+
+**Questi esercizi presentano una difficoltà molto elevata**
+
+```{r piv1, exercise=TRUE, exercise.setup = "df1-setup" }
+# Usando la tibble chiamata penguins conta quante species sono state campionato ogni anno.
+# Successivamente crea una tabella che contenga il nome delle specie come intestazione delle colonne
+# e gli anni come nome delle righe
+
+# Riporto qui l'output atteso:
+
+# year | Adelie | Chinstrap | Gentoo
+# 2007 |     50 |        26 |     34
+# 2008 |     50 |        18 |     46
+# 2009 |     52 |        24 |     44
+```
+
+```{r piv1-hint-1}
+# Per contare usa la funzione count()
+
+```
+
+```{r piv1-hint-2}
+# Per cambiare il formato della tabella usa la funzione pivot_wider
+```
+
+```{r piv1-hint-3}
+# La soluzione è
+penguins %>% 
+    count(species, year) %>%
+    pivot_wider(names_from = species,
+                values_from = n)
+```
+
+```{r piv2, exercise=TRUE, exercise.setup = "df1-setup" }
+# Corri il seguente codice per generare la tabella "wide"
+
+wide <- penguins %>%
+    drop_na() %>% 
+    group_by(island, year) %>%
+    summarise(across(ends_with("mm"), mean, .names = "mean_{.col}"))
+
+# Crea una tabella "lunga" che contenga nella colonna "MEAN" il nome della media calcolata (tutte le colonne che iniziano con mean_);
+# nella colonna "VALUE" il valore della media
+
+```
+
+```{r piv2-hint-1}
+# Per cambiare il formato della tabella usa la funzione pivot_longer
+```
+
+```{r piv2-hint-2}
+# La funzione pivot_longer ha 3 argomenti fondamentali:
+# 1. Le colonne che si vogliono modificare (cols = ...)
+# 2. Il nome della colonna che contiene i nomi (names_to = ...)
+# 3. Il nome della colonna che contiene i valiru (values_to = ...)
+```
+
+```{r piv2-hint-3}
+# La soluzione 1 è
+wide %>%
+    pivot_longer(cols = starts_with("mean"),
+                 names_to = "MEAN",
+                 values_to = "VALUE")
+# La soluzione 2 è
+wide %>%
+    pivot_longer(cols = mean_bill_length_mm:mean_flipper_length_mm,
+                 names_to = "MEAN",
+                 values_to = "VALUE")
+
+```
+

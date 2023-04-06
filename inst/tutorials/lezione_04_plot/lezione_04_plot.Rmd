@@ -1,0 +1,479 @@
+---
+title: "Lezione 4: Grafici"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+    
+    ```{r setup, include=FALSE}
+library(learnr)
+library(palmerpenguins)
+library(tidyverse)
+```
+
+## Grafici a dispersione
+
+
+```{r df1-setup, echo=FALSE}
+penguins <- palmerpenguins::penguins
+
+```
+
+```{r df1, exercise=TRUE}
+# Usando la tibble chiamata penguins crea un grafico a dispersione (punti) che contenga:
+# - sull'asse delle x bill_length_mm
+# - sull'asse delle y bill_depth_mm
+penguins %>% 
+    ggplot(aes(x = ___, 
+               y = ___)) +
+    geom_point()
+```
+
+```{r df1-hint-1}
+# Sostituisci le variabili ai trattini
+```
+
+```{r df1-hint-2}
+# usa geom_point() per stampare i dati sul grafico
+```
+
+```{r df1-hint-3}
+# La soluzione è
+penguins %>% 
+    ggplot(aes(x = bill_length_mm, 
+               y = bill_depth_mm)) +
+    geom_point()
+```
+
+
+```{r df2, exercise=TRUE, exercise.setup = "df1-setup" }
+# Utilizzando il codice del precedente esercizio, colora i punti sul grafico 
+# di rosso con una opacità del 50%
+
+```
+
+```{r df2-hint-1}
+# Per il colore usa l'opzione color = "red"
+```
+
+```{r df2-hint-2}
+# Per l'opacità usa l'opzione alpha = 0.5
+```
+
+```{r df2-hint-3}
+# La soluzione è
+penguins %>% 
+    ggplot(aes(x = bill_length_mm, 
+               y = bill_depth_mm)) +
+    geom_point(color = "red", alpha = 0.5)
+```
+
+```{r df3, exercise=TRUE, exercise.setup = "df1-setup" }
+# Utilizzando il codice del primo esercizio, colora i punti sul grafico 
+# mappando le 3 diverse specie. 
+
+# Colorare i punti a seconda del pinguino di apparteneza, permette di visualizzare un pattern?
+```
+
+```{r df3-hint-1}
+# Ricordati che per mappare una colonna sul grafico devi specificarlo all'interno della funzione aes()
+```
+
+```{r df3-hint-2}
+# Per il colore usa l'opzione aes(color = species) all'interno di geom_point()
+```
+
+```{r df3-hint-3}
+# La soluzione è
+penguins %>% 
+    ggplot(aes(x = bill_length_mm, 
+               y = bill_depth_mm)) +
+    geom_point(aes(color = species))
+```
+
+## Boxplot 
+
+```{r df4, exercise=TRUE, exercise.setup = "df1-setup" }
+# Costruire un boxplot che abbia sull'asse delle x le tre specie di pinguini e 
+# sull'asse delle y la lunghezza del becco
+
+```
+
+```{r df4-hint-1}
+# La funzione per disegnare un boxplot è geom_boxplot()
+```
+
+```{r df4-hint-2}
+# La soluzione è
+penguins %>% 
+    ggplot(aes(x = species, 
+               y = bill_length_mm)) +
+    geom_boxplot()
+
+```
+
+```{r df5, exercise=TRUE, exercise.setup = "df1-setup" }
+# Utilizzando il codice del precedento esercizio aggiungi un livello con visualizzi i
+# tutti i punti
+
+```
+
+```{r df5-hint-1}
+# La funzione per disegnare un boxplot è geom_boxplot()
+```
+
+```{r df5-hint-2}
+# per aggiungere i punti puoi usare la funzione geom_jitter()
+```
+
+```{r df5-hint-3}
+# La soluzione è
+penguins %>% 
+    ggplot(aes(x = species, 
+               y = bill_length_mm)) +
+    geom_boxplot() +
+    geom_jitter()
+
+```
+
+```{r df6, exercise=TRUE, exercise.setup = "df1-setup" }
+# Utilizzando il codice del precedento esercizio riduci la dispersione laterale dei punti.
+# Per fare questo bisogna usare un'opzione di geom_jitter(). Prova a leggere il manuale della funzione.
+```
+
+```{r df6-hint-1}
+# L'opzione da usare è width
+```
+
+```{r df6-hint-2}
+# La soluzione è
+penguins %>% 
+    ggplot(aes(x = species, 
+               y = bill_length_mm)) +
+    geom_boxplot() +
+    geom_jitter(width = .1)
+
+```
+
+**Questo esercizio è difficile**
+
+```{r df7, exercise=TRUE, exercise.setup = "df1-setup" }
+# Utilizzando il codice del precedento esercizio:
+# 1. Disegna i boxplot sopra i punti (inverti quindi l'ordine dei livelli)
+# 2. Colora i boxplot a seconda della specie (mappa la colonna species)
+# 3. Rendi i boxplot trasparenti in modo da vedere i punti sottostanti
+# 4. Cambia la forma dei punti per visualizzare l'isola di campionamento (mappa la colonna island)
+
+```
+
+```{r df7-hint-1}
+# La colonna species dev'essere mappata all'interno della funzione geom_boxplot
+
+# La colonna island dev'essere mappata all'interno della funzione geom_jitter
+```
+
+```{r df7-hint-2}
+# La soluzione è
+penguins %>% 
+    ggplot(aes(x = species, 
+               y = bill_length_mm)) +
+    geom_jitter(aes(shape = island), width = .1) +
+    geom_boxplot(aes(color = species), alpha = 0)
+
+```
+
+## Serie temporali
+
+
+```{r df8, exercise=TRUE, exercise.setup = "df1-setup" }
+# Creiamo un grafico che mostri in numero delle species campionate nel corso degli anni.
+
+# Come prima cosa dobbiamo contare quante specie sono state campionate nei diversi anni.
+# Poi creare un plot che mostri l'andamento nel tempo. Usa una linea per ogni specie di pinguino.
+
+penguins %>%
+    count(___, ___) %>%
+    ggplot(aes(x = ___,
+               y = ___)) +
+    geom_line(aes(color = ___))
+
+```
+
+```{r df8-hint-1}
+# Sostituisci le variabili corrette al posto dei trattini
+```
+
+```{r df8-hint-2}
+# La soluzione è
+penguins %>% 
+    count(year, species) %>%
+    ggplot(aes(x = year, 
+               y = n)) +
+    geom_line(aes(color = species))
+
+```
+
+```{r df9, exercise=TRUE, exercise.setup = "df1-setup" }
+# Utilizza il codice dell'esercizio precedente e aggiungi i punti di colore nero
+# al di sopra delle linee
+```
+
+```{r df9-hint-1}
+# Per disegnare i punti usa geom_point()
+```
+
+```{r df9-hint-2}
+# La soluzione è
+penguins %>% 
+    count(year, species) %>%
+    ggplot(aes(x = year, 
+               y = n)) +
+    geom_line(aes(color = species)) +
+    geom_point()
+
+```
+
+```{r df10, exercise=TRUE, exercise.setup = "df1-setup" }
+# Utilizza il codice dell'esercizio precedente e aggiungi i punti dello stesso colore delle linee
+
+```
+
+```{r df10-hint-1}
+# Puoi aggiungere il colore nella funzione aes() di geom_point() oppure puoi spostare l'opzione color
+# nella funzione aes() di ggplot()
+```
+
+```{r df10-hint-2}
+# La soluzione 1 è
+penguins %>% 
+    count(year, species) %>%
+    ggplot(aes(x = year, 
+               y = n)) +
+    geom_line(aes(color = species)) +
+    geom_point(aes(color = species))
+
+# La soluzione 2 è
+penguins %>% 
+    count(year, species) %>%
+    ggplot(aes(x = year, 
+               y = n, 
+               color = species)) +
+    geom_line() +
+    geom_point()
+
+
+```
+
+## Faceting
+
+----
+
+```{r df11, exercise=TRUE, exercise.setup = "df1-setup" }
+# Creiamo un grafico che mostri in numero delle species campionate nel corso degli anni e per singola isola.
+
+# Come prima cosa dobbiamo contare quante specie sono state campionate nei diversi anni per ogni isola
+# Poi creare un plot che mostri l'andamento nel tempo. Usa una linea per ogni specie di pinguino e 
+# un facet per ogni isola
+
+```
+
+```{r df11-hint-1}
+# Puoi aggiungere il colore nella funzione aes() di geom_point() oppure puoi spostare l'opzione color
+# nella funzione aes() di ggplot()
+
+```
+
+```{r df11-hint-2}
+# Ricordati di usare la funzione helper vars() all'interno di facet_wrap
+
+```
+
+```{r df11-hint-3}
+# La soluzione è
+penguins %>% 
+    count(year, species, island) %>%
+    ggplot(aes(x = year, 
+               y = n, color = species)) +
+    geom_line() +
+    geom_point() +
+    facet_wrap(vars(island))
+
+```
+
+## Miglioriamo la visualizzazione
+
+```{r df12, exercise=TRUE, exercise.setup = "df1-setup" }
+# Utilizzando il codice sotto riportato, completa le parti mancanti
+
+# 1. Cambiamo il tema del grafico: theme_classic()
+# 2. La variabile "year" è una variabile continua. Rendiamola una variabile  fattoriale con la funzione factor()
+# 3. Aggiungiamo il titolo al grafico: "Andamento annuale dei campionamenti"
+# 4. Aggiungiamo il titolo all'asse delle x: "Anni"
+# 5. Aggiungiamo il titolo all'asse delle y: "Numero di specie campionate"
+# 6. Aumentiamo la dimensione del titolo del grafico a 20 e centriamolo
+# 7. Disegniamo le linee orizzontali che permettono una maggiore leggibilità
+
+
+penguins %>% 
+    count(____, ___, ___) %>%
+    mutate(year = factor(___))%>%
+    ggplot(aes(x = ___, 
+               y = ___, 
+               group = ___) +
+    geom_line(aes(___ = ___)) +
+    geom_point() +
+    facet_wrap(vars(___)) +
+    theme_classic() +
+    labs(___ = "___",
+         ___ = "___",
+         ___ = "___") +
+    theme(___ = element_text(___ = 20, ___ = ___),
+          ___ = element_line(___ = .5))
+```
+
+```{r df12-hint-1}
+# La funzione factor() rende la variabile al suo interno categorica, quindi una variabile discreta.
+
+# Le variabili categoriche sono molto utili in casi specifici. Nel corso non ce ne siamo occupati,
+# ma se desiderate approfondire c'è un pacchetto nel tidyverse che si chiama forcats nato per gestire
+# le variabile categoriche. Nel capitolo bonus, alla fine di questa lezione, mostro l'utilità del
+# pacchetto forcats
+```
+
+```{r df12-hint-2}
+# Per visualizzare la griglia orizzontale usa dentro theme() l'opzione: panel.grid.major.y
+
+# Ricordati che l'opzione panel.grid.major.x vuole la funzione helper element_line()
+
+```
+
+```{r df12-hint-3}
+# La soluzione è
+penguins %>% 
+    count(year, species, island) %>%
+    mutate(year = factor(year))%>%
+    ggplot(aes(x = year, 
+               y = n, 
+               group = species)) +
+    geom_line(aes(color = species)) +
+    geom_point() +
+    facet_wrap(vars(island)) +
+    theme_classic() +
+    labs(title = "Andamento annuale dei campionamenti",
+         x = "Anni",
+         y = "Numero di specie campionate") +
+    theme(plot.title = element_text(size = 20, hjust = .5),
+          panel.grid.major.y = element_line(size = .5))
+
+```
+
+## Salvataggio
+
+```{r plot-setup, echo=FALSE}
+penguins <- palmerpenguins::penguins
+dir.create("figure")
+```
+
+```{r df14, exercise=TRUE, exercise.setup = "plot-setup" }
+# Utilizzando il codice sotto riportato, salva il plot nella cartella 'figure', in tiff,
+# largo 10 cm e alto 7 cm, con una risoluzione di 400dpi
+
+penguins %>%
+    group_by(species) %>%
+    summarise(nm = mean(bill_length_mm, na.rm = TRUE)) %>%
+    ggplot(aes(x = species,
+               y = nm)) +
+    geom_col()       
+
+ggsave("figure/___", units = ___, width = ___, height = ___, dpi = ___)
+```
+
+```{r df14-hint-1}
+# La soluzione è:
+penguins %>%
+    group_by(species) %>%
+    summarise(nm = mean(bill_length_mm, na.rm = TRUE)) %>%
+    ggplot(aes(x = species,
+               y = nm)) +
+    geom_col()       
+
+ggsave("figure/Fig1.tiff", units = "cm", width = 10, height = 7, dpi = 400)
+```
+
+
+## Bonus
+
+In questo capitolo bonus vi mostrerò la funzionalità delle variabili categoriche
+
+```{r df13, exercise=TRUE, exercise.setup = "df1-setup" }
+# Immaginiamo di voler plottare un grafico che contenga il numero medio della lunghezza del becco dei pinguini
+
+penguins %>%
+    group_by(species) %>%
+    summarise(nm = mean(bill_length_mm, na.rm = TRUE)) %>%
+    ggplot(aes(x = species,
+               y = nm)) +
+    geom_col()       
+
+```
+
+Il grafico generato non ci piace. Vorremmo che le specie di pinguini fossero ordinate da quella con in media 
+il becco più lungo a quella con il becco più corto.
+
+Proviamo ad utilizzare la funzione arrange() che serve per ordinare.
+
+```{r df14, exercise=TRUE, exercise.setup = "df1-setup" }
+# Immaginiamo di voler plottare un grafico che contenga il numero medio della lunghezza del becco dei pinguini
+
+penguins %>%
+    group_by(species) %>%
+    summarise(nm = mean(bill_length_mm, na.rm = TRUE))
+
+penguins %>%
+    group_by(species) %>%
+    summarise(nm = mean(bill_length_mm, na.rm = TRUE)) %>%
+    # Ordino la colonna nm in ordine decrescente (desc())
+    arrange(desc(nm))
+
+penguins %>%
+    group_by(species) %>%
+    summarise(nm = mean(bill_length_mm, na.rm = TRUE)) %>%
+    # Ordino la colonna nm in ordine decrescente (desc())
+    arrange(desc(nm)) %>%
+    ggplot(aes(x = species,
+               y = nm)) +
+    geom_col()       
+
+```
+
+Come potete vedere, sebbene abbiamo cambiato l'ordinamento della tibble, nulla cambia sul grafico. Questo succede
+perchè l'ordine delle specie è determinato dalla classe di quella colonna.
+
+```{r df15, exercise=TRUE, exercise.setup = "df1-setup" }
+# Vediamo la classe della colonna species
+class(penguins$species)
+
+# Vediamo cosa contiene quella colonna
+penguins$species
+```
+
+Vedi l'ultima riga dell'output? Inzia con Levels:
+
+Quella riga contiene i livelli della variabile categorica. Il grafico verrà sempre disegnato usando quell'ordine.
+
+Come possiamo cambiare quell'ordine? Possiamo usare il pacchetto forcats.
+
+```{r df16, exercise=TRUE, exercise.setup = "df1-setup" }
+# Il pacchetto forcats è caricato insieme agli altri pacchetti del tidyverse
+
+penguins %>%
+    group_by(species) %>%
+    summarise(nm = mean(bill_length_mm, na.rm = TRUE)) %>%
+    # Riordino la colonna species sui valori della colonna nm usando la funzione fct_reorder()
+    mutate(species = fct_reorder(species, desc(nm))) %>%
+    ggplot(aes(x = species,
+               y = nm)) +
+    geom_col()       
+
+```
+
+

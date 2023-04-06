@@ -1,0 +1,26 @@
+Package: intRo.Esercizi
+Title: Pacchetto sviluppato per il formative assessment degli studenti del corso intRo organizzato dall'IBiG (IPSP Bioinformatic group)
+Version: 1.0.0
+Authors@R: 
+    person(given = "Marco",
+           family = "Chiapello",
+           role = c("aut", "cre", "man"),
+           email = "marco.chiapello@gmail.com",
+           comment = c(ORCID = "0000-0001-7768-3047"))
+Description: Il pacchetto <U+00E8> stato sviluppato per il corso introduttivo ad R dell'Istituto per la Protezione Sostenibile delle Piante del Consiglio Nazionle per le Ricerche 
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+Suggests: 
+    learnr
+Imports: 
+    palmerpenguins (>= 0.1.0),
+    dplyr (>= 1.0.5),
+    tidyr,
+    ggplot2,
+    forcats
+Remotes: 
+    tidyverse/dplyr,
+    allisonhorst/palmerpenguins
